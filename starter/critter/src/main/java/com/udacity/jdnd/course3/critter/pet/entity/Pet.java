@@ -6,12 +6,13 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-//@Table(name = "pet")
+@Table(name = "pet")
 public class Pet {
     @Id
     @GeneratedValue
     private long id;
     private PetType type;
+@Nationalized
     private String name;
     private long ownerId;
     private LocalDate birthDate;
