@@ -1,4 +1,4 @@
-package com.udacity.jdnd.course3.critter.user.api;
+package com.udacity.jdnd.course3.critter.user;
 
 import com.udacity.jdnd.course3.critter.user.CustomerDTO;
 import com.udacity.jdnd.course3.critter.user.EmployeeDTO;
