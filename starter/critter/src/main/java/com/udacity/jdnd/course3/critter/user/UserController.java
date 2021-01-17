@@ -30,7 +30,6 @@ public class UserController {
     CustomerService customerService;
     PetService petService;
 
-    @Autowired
     public UserController(CustomerService customerService, PetService petService) {
         this.customerService = customerService;
         this.petService = petService;
@@ -38,21 +37,23 @@ public class UserController {
 
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
-        this.customerService.saveCustomer(customerDTO);
-        return customerDTO;
-        //        throw new UnsupportedOperationException();
+        Customer owner = this.customerService.saveCustomer(convertCustomerDTOtoEntity(customerDTO));
+        return convertEntityToCustomerDTO(owner);
     }
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers(){
-        return this.customerService.getAllCustomers();
+        List<Customer> ownerList = customerService.findAll();
+        //convert it into a list by using streams
+        return ownerList;
 //        throw new UnsupportedOperationException();
     }
 
     @GetMapping("/customer/pet/{petId}")
     public CustomerDTO getOwnerByPet(@PathVariable long petId){
         Pet pet = petService.getPetById(petId);
-        Customer customer = pet.getOwner();
+        Customer owner = pet.getOwner();
+        return convertEntityToCustomerDTO(owner);
     }
 
     @PostMapping("/employee")
