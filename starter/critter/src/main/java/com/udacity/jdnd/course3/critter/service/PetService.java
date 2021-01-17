@@ -1,17 +1,12 @@
 package com.udacity.jdnd.course3.critter.service;
 
 import com.udacity.jdnd.course3.critter.entity.Pet;
-import com.udacity.jdnd.course3.critter.repository.PetRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
-public class PetService {
+import java.util.List;
 
-    @Autowired
-    PetRepository petRepository;
-
-    public void save(Pet pet){
-        petRepository.persist(pet);
-    }
+public interface PetService {
+    Pet savePet(Pet pet);
+    Pet getPetById(long id);
+    List<Pet> getAllPets();
+    List<Pet> getAllByOwnerId(long ownerId);
 }
