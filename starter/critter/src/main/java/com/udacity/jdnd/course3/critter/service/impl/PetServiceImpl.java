@@ -1,6 +1,8 @@
 package com.udacity.jdnd.course3.critter.service.impl;
 
+import com.udacity.jdnd.course3.critter.entity.Customer;
 import com.udacity.jdnd.course3.critter.entity.Pet;
+import com.udacity.jdnd.course3.critter.exception.ObjectNotFoundException;
 import com.udacity.jdnd.course3.critter.repository.CustomerRepository;
 import com.udacity.jdnd.course3.critter.repository.PetRepository;
 import com.udacity.jdnd.course3.critter.service.PetService;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PetServiceImpl implements PetService {
@@ -24,18 +27,23 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Pet savePet(Pet pet) {
-
-
-
-
-
-
-        return null;
+        Customer owner = pet.getOwner();
+        if(owner != null){
+            Optional<Customer> ownerOptional = customerRepository.findById(owner.getId());
+            if(ownerOptional.isPresent()){
+                owner = ownerOptional.get();
+                owner.getPets().add(pet);
+            }else{
+                throw new ObjectNotFoundException("Customer not found");
+            }
+        }
+        petRepository.save(pet);
+        return pet;
     }
 
     @Override
     public Pet getPetById(long id) {
-        return null;
+        return petRepository.findById(id);
     }
 
     @Override

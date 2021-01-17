@@ -1,5 +1,7 @@
 package com.udacity.jdnd.course3.critter.user;
 
+import com.udacity.jdnd.course3.critter.entity.Pet;
+
 import java.util.List;
 
 /**
@@ -7,19 +9,28 @@ import java.util.List;
  * to the database directly.
  */
 public class CustomerDTO {
-    private long id;
+//    private long id;
     private String name;
     private String phoneNumber;
     private String notes;
-    private List<Long> petIds;
+    private List<Pet> pets;
+    private String ssn;
 
-    public long getId() {
-        return id;
+    public CustomerDTO(String name, String phoneNumber, String notes, List<Pet> pets, String ssn) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.notes = notes;
+        this.pets = pets;
+        this.ssn = ssn;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    //    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
@@ -37,6 +48,14 @@ public class CustomerDTO {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getSsn() {
+        return ssn;
+    }
+
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
+    }
+
     public String getNotes() {
         return notes;
     }
@@ -45,11 +64,11 @@ public class CustomerDTO {
         this.notes = notes;
     }
 
-    public List<Long> getPetIds() {
-        return petIds;
+    public List<Pet> getPets() {
+        return pets;
     }
 
-    public void setPetIds(List<Long> petIds) {
-        this.petIds = petIds;
+    public void setPet(List<Pet> pets) {
+        this.pets = pets;
     }
 }

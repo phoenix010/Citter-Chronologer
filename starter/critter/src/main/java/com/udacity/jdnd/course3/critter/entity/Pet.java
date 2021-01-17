@@ -29,9 +29,25 @@ public class Pet {
 
     @Column(name="BIRTH_DATE")
     private LocalDate birthDate;
-//    private String notes;
+
+    @Column(name = "notes")
+    private String notes;
     public Pet() {}
 
+    public Pet(String name, Customer owner, PetType type, LocalDate birthDate, String notes) {
+        this.name = name;
+        this.owner = owner;
+        this.type = type;
+        this.birthDate = birthDate;
+        this.notes = notes;
+    }
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 
     public Long getId() {
         return id;

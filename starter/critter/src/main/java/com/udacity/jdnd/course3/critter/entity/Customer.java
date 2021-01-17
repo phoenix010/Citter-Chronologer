@@ -33,7 +33,7 @@ public class Customer {
 
     public Customer() { }
 
-    public Customer(long id, String name, String phoneNumber, String notes, List<Pet> pets, String ssn) {
+    public Customer(String name, String phoneNumber, String notes, List<Pet> pets, String ssn) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -98,9 +98,5 @@ public class Customer {
         this.ssn = ssn;
     }
 
-    @Override
-    public String toString() {
-        return "Customer [id=" + id + ", name=" + name + ", pets=" + pets + ", phoneNumber=" + phoneNumber + "]";
-    }
 
 }
