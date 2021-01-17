@@ -5,7 +5,7 @@ import org.hibernate.annotations.Nationalized;
 import javax.persistence.*;
 import java.util.List;
 @Entity
-@Table(name="Customer")
+@Table(name="CUSTOMER")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,17 +24,22 @@ public class Customer {
     @Column(name="NOTES", length = 512)
     private String notes;
 
+    @Nationalized
+    @Column(name="CUSTOMER_SSN", nullable = false, unique = true, length = 9)
+    private String ssn;
+
     @OneToMany(mappedBy = "customer", targetEntity = Pet.class, cascade = CascadeType.ALL)
     private List<Pet> pets;
 
     public Customer() { }
 
-    public Customer(long id, String name, String phoneNumber, String notes, List<Pet> pets) {
+    public Customer(long id, String name, String phoneNumber, String notes, List<Pet> pets, String ssn) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.notes = notes;
         this.pets = pets;
+        this.ssn = ssn;
     }
 
     public Long getId() {
@@ -75,6 +80,22 @@ public class Customer {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getSsn() {
+        return ssn;
+    }
+
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
     }
 
     @Override

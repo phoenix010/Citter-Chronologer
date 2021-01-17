@@ -1,11 +1,14 @@
 package com.udacity.jdnd.course3.critter.pet;
 
-import com.udacity.jdnd.course3.critter.service.PetService;
+import com.udacity.jdnd.course3.critter.entity.Customer;
+import com.udacity.jdnd.course3.critter.service.impl.CustomerServiceImpl;
+import com.udacity.jdnd.course3.critter.service.impl.PetServiceImpl;
 import com.udacity.jdnd.course3.critter.entity.Pet;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -15,14 +18,21 @@ import java.util.List;
 @RequestMapping("/pet")
 public class PetController {
 
+    PetServiceImpl petService;
+    CustomerServiceImpl customerService;
+
     @Autowired
-    PetService petService;
+    public PetController(PetServiceImpl petService, CustomerServiceImpl customerService) {
+        this.petService = petService;
+        this.customerService = customerService;
+    }
 
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
+        /**
+         * Validate if the customer exists. if excists, then save the pet otherewise return the error msg back as response.
+         */
         System.out.println("working on PET POST REQ");
-        petService.save(convertPetDTOtoEntity(petDTO));
-
         return petDTO;
     }
 

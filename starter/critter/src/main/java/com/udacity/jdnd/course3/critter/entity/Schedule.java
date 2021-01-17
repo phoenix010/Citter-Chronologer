@@ -3,56 +3,58 @@ package com.udacity.jdnd.course3.critter.entity;
 import com.udacity.jdnd.course3.critter.user.EmployeeSkill;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "Schedule")
+@Table(name = "SCHEDULE")
 public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name="SCHEDULE_ID", nullable = false,unique = true)
+    private long id;
 
-    @ManyToMany(targetEntity = Pet.class)
-    private List<Pet> pets;
-    @ManyToMany(targetEntity = Employee.class)
-    private List<Employee> employees;
     @ElementCollection
-    private Set<EmployeeSkill> activities;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ACTIVITIES", length = 500)
+    private Set<EmployeeSkill> activities = new HashSet<>();
+
+    @Column(name="SCHEDULE_DATE")
+    private LocalDate date;
+
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinTable(name = "SCHEDULE_EMPLOYEE", joinColumns = @JoinColumn(name = "SCHEDULE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "EMPLOYEE_ID"))
+    private List<Employee> employees = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinTable(name = "SCHEDULE_PET", joinColumns = @JoinColumn(name = "SCHEDULE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PET_ID"))
+    private List<Pet> pets = new ArrayList<>();
 
 
+    public Schedule() {
 
+    }
 
+    public Schedule(long id, Set<EmployeeSkill> activities, LocalDate date, List<Employee> employees, List<Pet> pets) {
+        this.id = id;
+        this.activities = activities;
+        this.date = date;
+        this.employees = employees;
+        this.pets = pets;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
-    }
-
-    public List<Pet> getPets() {
-        return pets;
-    }
-
-    public void setPets(List<Pet> pets) {
-        this.pets = pets;
     }
 
     public Set<EmployeeSkill> getActivities() {
@@ -63,6 +65,14 @@ public class Schedule {
         this.activities = activities;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     public List<Employee> getEmployees() {
         return employees;
     }
@@ -71,10 +81,13 @@ public class Schedule {
         this.employees = employees;
     }
 
-    @Override
-    public String toString() {
-        return "Schedule [activities=" + activities + ", employees=" + employees + ", id=" + id + ", pets=" + pets
-                + "]";
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
     }
 
 
