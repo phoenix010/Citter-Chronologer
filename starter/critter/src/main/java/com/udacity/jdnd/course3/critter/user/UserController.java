@@ -16,6 +16,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Handles web requests related to Users.
@@ -43,10 +44,8 @@ public class UserController {
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers(){
-        List<Customer> ownerList = customerService.findAll();
-        //convert it into a list by using streams
-        return ownerList;
-//        throw new UnsupportedOperationException();
+        List<Customer> ownerList = customerService.getAllCustomers();
+        return ownerList.stream().map(x -> convertEntityToCustomerDTO(x)).collect(Collectors.toList());
     }
 
     @GetMapping("/customer/pet/{petId}")
@@ -75,12 +74,15 @@ public class UserController {
     public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
         throw new UnsupportedOperationException();
     }
+    private List<CustomerDTO> convertEntityListToCustomerDTOList(List <Customer> customer){
+        return  customer.stream().map(x -> convertEntityToCustomerDTO(x)).collect(Collectors.toList());
+    }
 
     private Customer convertCustomerDTOtoEntity(CustomerDTO customerDTO){
-        return new Customer (customerDTO.getName(),customerDTO.getPhoneNumber(),customerDTO.getNotes(),customerDTO.getPets(),customerDTO.getSsn());
+        return new Customer (customerDTO.getName(),customerDTO.getPhoneNumber(),customerDTO.getNotes(),customerDTO.getPets());
     }
     private CustomerDTO convertEntityToCustomerDTO(Customer customer){
-        return new CustomerDTO(customer.getName(), customer.getPhoneNumber(),customer.getNotes(),customer.getPets(), customer.getSsn());
+        return new CustomerDTO(customer.getName(), customer.getPhoneNumber(),customer.getNotes(),customer.getPets());
     }
 
 }

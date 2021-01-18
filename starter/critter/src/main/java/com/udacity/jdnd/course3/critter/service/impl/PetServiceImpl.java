@@ -31,24 +31,34 @@ public class PetServiceImpl implements PetService {
         if(owner != null){
             Optional<Customer> ownerOptional = customerRepository.findById(owner.getId());
             if(ownerOptional.isPresent()){
+                petRepository.save(pet);
                 owner = ownerOptional.get();
                 owner.getPets().add(pet);
             }else{
                 throw new ObjectNotFoundException("Customer not found");
             }
         }
-        petRepository.save(pet);
+//        petRepository.save(pet);
         return pet;
     }
 
     @Override
     public Pet getPetById(long id) {
-        return petRepository.findById(id);
+        Optional<Pet> pet = petRepository.findById(id);
+        if(pet.isPresent()){
+            return pet.get();
+        }else{
+            throw new ObjectNotFoundException("pet not found");
+        }
     }
 
     @Override
     public List<Pet> getAllPets() {
-        return null;
+        List<Pet> petList =  petRepository.findAll();
+        if(petList.size()== 0){
+            throw new ObjectNotFoundException("Pet List is zero");
+        }
+        return petList;
     }
 
     @Override

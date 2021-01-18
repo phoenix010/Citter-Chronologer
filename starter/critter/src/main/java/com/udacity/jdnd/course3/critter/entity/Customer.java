@@ -24,22 +24,20 @@ public class Customer {
     @Column(name="NOTES", length = 512)
     private String notes;
 
-    @Nationalized
-    @Column(name="CUSTOMER_SSN", nullable = false, unique = true, length = 9)
-    private String ssn;
-
     @OneToMany(mappedBy = "customer", targetEntity = Pet.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "PET_ID")
+    @Column(name = "CUSTOMER_PETS")
     private List<Pet> pets;
 
     public Customer() { }
 
-    public Customer(String name, String phoneNumber, String notes, List<Pet> pets, String ssn) {
+    public Customer(String name, String phoneNumber, String notes, List<Pet> pets) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.notes = notes;
         this.pets = pets;
-        this.ssn = ssn;
+
     }
 
     public Long getId() {
@@ -89,14 +87,4 @@ public class Customer {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    public String getSsn() {
-        return ssn;
-    }
-
-    public void setSsn(String ssn) {
-        this.ssn = ssn;
-    }
-
-
 }

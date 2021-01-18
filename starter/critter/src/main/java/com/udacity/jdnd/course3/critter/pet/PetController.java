@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Handles web requests related to Pets.
@@ -33,9 +34,6 @@ public class PetController {
 
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
-        /**
-         * Validate if the customer exists. if excists, then save the pet otherewise return the error msg back as response.
-         */
         System.out.println("working on PET POST REQ");
         Pet pet = convertPetDTOtoEntity(petDTO);
         return convertEntityToPetDTO(petService.savePet(pet));
@@ -48,12 +46,16 @@ public class PetController {
 
     @GetMapping
     public List<PetDTO> getPets(){
-        throw new UnsupportedOperationException();
+        System.out.println("Get All Pets");
+        List <Pet> petList = petService.getAllPets();
+        return petList.stream().map(x->convertEntityToPetDTO(x)).collect(Collectors.toList());
     }
 
     @GetMapping("/owner/{ownerId}")
     public List<PetDTO> getPetsByOwner(@PathVariable long ownerId) {
-        throw new UnsupportedOperationException();
+        System.out.println("Get All the pets by ownerID");
+        Customer owner = customerService.findById(ownerId);
+        return owner.getPets().stream().map(x->convertEntityToPetDTO(x)).collect(Collectors.toList());
     }
 
     private Pet convertPetDTOtoEntity(PetDTO petDTO){

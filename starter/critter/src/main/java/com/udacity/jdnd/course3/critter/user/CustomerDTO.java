@@ -14,14 +14,14 @@ public class CustomerDTO {
     private String phoneNumber;
     private String notes;
     private List<Pet> pets;
-    private String ssn;
 
-    public CustomerDTO(String name, String phoneNumber, String notes, List<Pet> pets, String ssn) {
+
+    public CustomerDTO(String name, String phoneNumber, String notes, List<Pet> pets) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.notes = notes;
         this.pets = pets;
-        this.ssn = ssn;
+
     }
 
     //    public long getId() {
@@ -46,14 +46,6 @@ public class CustomerDTO {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getSsn() {
-        return ssn;
-    }
-
-    public void setSsn(String ssn) {
-        this.ssn = ssn;
     }
 
     public String getNotes() {
