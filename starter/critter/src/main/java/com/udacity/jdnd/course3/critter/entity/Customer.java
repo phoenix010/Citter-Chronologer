@@ -8,12 +8,12 @@ import java.util.List;
 @Table(name="CUSTOMER")
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO )
     @Column(name= "CUSTOMER_ID", nullable = false,length=255)
     private Long id;
 
     @Nationalized
-    @Column(name= "CUSTOMER_NAME", length = 255)
+    @Column(name= "CUSTOMER_NAME",nullable = false, length = 255)
     private String name;
 
     @Nationalized
@@ -24,7 +24,7 @@ public class Customer {
     @Column(name="NOTES", length = 512)
     private String notes;
 
-    @OneToMany( cascade = CascadeType.ALL)
+    @OneToMany( mappedBy = "owner",cascade = CascadeType.ALL)
     private List<Pet> pets;
 
     public Customer() { }

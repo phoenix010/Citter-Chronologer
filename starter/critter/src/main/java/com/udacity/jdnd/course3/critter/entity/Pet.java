@@ -11,16 +11,15 @@ import java.time.LocalDate;
 public class Pet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="PET_ID", nullable = false,unique = true)
     private Long id;
 
     @Nationalized
-    @Column(name="NAME", length = 255)
+    @Column(name="NAME",nullable = false, length = 255)
     private String name;
 
-    @ManyToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "CUSTOMER_ID")
+    @ManyToOne( cascade = CascadeType.ALL)
     private Customer owner;
 
     @Enumerated(EnumType.STRING)
@@ -30,11 +29,11 @@ public class Pet {
     @Column(name="BIRTH_DATE")
     private LocalDate birthDate;
 
-    @Column(name = "notes")
+    @Column(name = "NOTES",length = 255)
     private String notes;
     public Pet() {}
 
-    public Pet(String name, Customer owner, PetType type, LocalDate birthDate, String notes) {
+    public Pet(String name,Customer owner, PetType type, LocalDate birthDate, String notes) {
         this.name = name;
         this.owner = owner;
         this.type = type;

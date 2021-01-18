@@ -61,7 +61,8 @@ public class PetController {
     private Pet convertPetDTOtoEntity(PetDTO petDTO){
         String petName = petDTO.getName();
         PetType petType = petDTO.getType();
-        Customer owner = petDTO.getOwner();
+        long ownerId = petDTO.getOwnerId();
+        Customer owner = customerService.findById(ownerId);
         LocalDate birthDate = petDTO.getBirthDate();
         String notes = petDTO.getNotes();
         return new Pet(petName,owner,petType,birthDate,notes);
@@ -69,9 +70,9 @@ public class PetController {
     private PetDTO convertEntityToPetDTO(Pet pet){
         PetType petType = pet.getType();
         String name = pet.getName();
-        Customer owner = pet.getOwner();
+        long ownerId = pet.getOwner().getId();
         LocalDate birthDate = pet.getBirthDate();
         String notes = pet.getNotes();
-        return new PetDTO(petType,name,owner,birthDate,notes);
+        return new PetDTO(petType,name,ownerId,birthDate,notes);
      }
 }

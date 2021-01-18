@@ -14,7 +14,7 @@ import java.util.Set;
 public class Schedule {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="SCHEDULE_ID", nullable = false,unique = true)
     private long id;
 

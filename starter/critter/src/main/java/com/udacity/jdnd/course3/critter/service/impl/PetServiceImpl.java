@@ -27,7 +27,8 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Pet savePet(Pet pet) {
-        Customer owner = pet.getOwner();
+        Customer owner =  pet.getOwner();
+        System.out.println("owner is: "+pet.getOwner());
         if(owner != null){
             Optional<Customer> ownerOptional = customerRepository.findById(owner.getId());
             if(ownerOptional.isPresent()){
