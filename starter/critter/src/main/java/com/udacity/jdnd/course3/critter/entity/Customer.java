@@ -24,9 +24,7 @@ public class Customer {
     @Column(name="NOTES", length = 512)
     private String notes;
 
-    @OneToMany(mappedBy = "customer", targetEntity = Pet.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "PET_ID")
-    @Column(name = "CUSTOMER_PETS")
+    @OneToMany( cascade = CascadeType.ALL)
     private List<Pet> pets;
 
     public Customer() { }
