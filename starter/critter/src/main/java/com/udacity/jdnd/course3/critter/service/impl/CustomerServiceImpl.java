@@ -21,7 +21,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer saveCustomer(Customer customer) {
+        if(isNullOrEmpty(customer.getName().trim())){
+            throw new ObjectNotFoundException("Please type your name");
+        }
        return  customerRepository.save(customer);
+    }
+    private static boolean isNullOrEmpty(String str){
+        if(str !=null && !str.isEmpty())
+            return false;
+        else
+            return true;
     }
 
     @Override

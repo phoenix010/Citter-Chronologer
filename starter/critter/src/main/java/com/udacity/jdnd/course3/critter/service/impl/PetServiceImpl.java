@@ -39,7 +39,6 @@ public class PetServiceImpl implements PetService {
                 throw new ObjectNotFoundException("Customer not found");
             }
         }
-//        petRepository.save(pet);
         return pet;
     }
 

@@ -1,6 +1,14 @@
 package com.udacity.jdnd.course3.critter.schedule;
 
 import com.udacity.jdnd.course3.critter.schedule.ScheduleDTO;
+import com.udacity.jdnd.course3.critter.service.CustomerService;
+import com.udacity.jdnd.course3.critter.service.EmployeeService;
+import com.udacity.jdnd.course3.critter.service.PetService;
+import com.udacity.jdnd.course3.critter.service.ScheduleService;
+import com.udacity.jdnd.course3.critter.service.impl.CustomerServiceImpl;
+import com.udacity.jdnd.course3.critter.service.impl.EmployeeServiceImpl;
+import com.udacity.jdnd.course3.critter.service.impl.PetServiceImpl;
+import com.udacity.jdnd.course3.critter.service.impl.ScheduleServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +19,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/schedule")
 public class ScheduleController {
+
+    CustomerService customerService;
+    EmployeeService employeeService;
+    PetService petService;
+    ScheduleService scheduleService;
+
+    public ScheduleController(CustomerService customerService, EmployeeService employeeService, PetService petService, ScheduleService scheduleService) {
+        this.customerService = customerService;
+        this.employeeService = employeeService;
+        this.petService = petService;
+        this.scheduleService = scheduleService;
+    }
 
     @PostMapping
     public ScheduleDTO createSchedule(@RequestBody ScheduleDTO scheduleDTO) {

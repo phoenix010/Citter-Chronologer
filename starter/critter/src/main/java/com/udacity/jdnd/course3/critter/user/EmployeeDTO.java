@@ -8,18 +8,23 @@ import java.util.Set;
  * to the database directly.
  */
 public class EmployeeDTO {
-    private long id;
+//    private long id;
     private String name;
     private Set<EmployeeSkill> skills;
     private Set<DayOfWeek> daysAvailable;
 
-    public long getId() {
-        return id;
+    public EmployeeDTO(String name, Set<EmployeeSkill> skills, Set<DayOfWeek> daysAvailable) {
+        this.name = name;
+        this.skills = skills;
+        this.daysAvailable = daysAvailable;
     }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    //    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
