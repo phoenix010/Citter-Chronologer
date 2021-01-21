@@ -9,4 +9,5 @@ public interface PetService {
     Pet getPetById(long id);
     List<Pet> getAllPets();
     List<Pet> getAllByOwnerId(long ownerId);
+    Long getPetIdByName(String name);
 }

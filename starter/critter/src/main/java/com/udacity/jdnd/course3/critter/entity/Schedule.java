@@ -41,8 +41,8 @@ public class Schedule {
 
     }
 
-    public Schedule(long id, Set<EmployeeSkill> activities, LocalDate date, List<Employee> employees, List<Pet> pets) {
-        this.id = id;
+    public Schedule(Set<EmployeeSkill> activities, LocalDate date, List<Employee> employees, List<Pet> pets) {
+//        this.id = id;
         this.activities = activities;
         this.date = date;
         this.employees = employees;

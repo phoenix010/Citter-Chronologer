@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -65,20 +66,32 @@ public class UserController {
         return convertEntityToEmployeeDTO(employee);
     }
 
-    @PostMapping("/employee/{employeeId}")
-    public EmployeeDTO getEmployee(@PathVariable long employeeId) {
-        Employee employee = this.employeeService.getEmployeeById(employeeId);
+//    @PostMapping("/employee/{employeeId}")
+//    public EmployeeDTO getEmployee(@PathVariable long employeeId) {
+//        Employee employee = this.employeeService.getEmployeeById(employeeId);
+//        return convertEntityToEmployeeDTO(employee);
+//    }
+    @GetMapping("/employee/{employeeId}")
+    public EmployeeDTO findEmployeeByID( @PathVariable long employeeId) {
+        Employee employee = employeeService.getEmployeeById(employeeId);
         return convertEntityToEmployeeDTO(employee);
     }
 
-    @PostMapping("/employee/{employeeId}")
-    public void setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
-        throw new UnsupportedOperationException();
+    @PutMapping("/employee/{employeeId}")
+    public String setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
+//        throw new UnsupportedOperationException();
+        Employee employee = employeeService.getEmployeeById(employeeId);
+        employee.setDaysAvailable(daysAvailable);
+        return "Schedule added";
     }
 
     @GetMapping("/employee/availability")
     public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
         throw new UnsupportedOperationException();
+//        List<Employee> employees = employeeService.getAvailableEmployees(
+//                employeeDTO.getSkills(), employeeDTO.getDate().getDayOfWeek());
+//
+//        return employees.stream().map(this::convertEntityToEmployeeDTO(this)).collect(Collectors.toList());
     }
     private Employee convertEmployeeDTOtoEntity(EmployeeDTO employeeDTO){
         return new Employee(employeeDTO.getName(),employeeDTO.getSkills(),employeeDTO.getDaysAvailable());

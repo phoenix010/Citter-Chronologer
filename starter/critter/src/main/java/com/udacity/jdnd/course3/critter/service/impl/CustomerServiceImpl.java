@@ -1,15 +1,18 @@
 package com.udacity.jdnd.course3.critter.service.impl;
 
 import com.udacity.jdnd.course3.critter.entity.Customer;
+import com.udacity.jdnd.course3.critter.entity.Employee;
 import com.udacity.jdnd.course3.critter.exception.ObjectNotFoundException;
 import com.udacity.jdnd.course3.critter.repository.CustomerRepository;
 import com.udacity.jdnd.course3.critter.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Service
 public class CustomerServiceImpl implements CustomerService {
     CustomerRepository customerRepository;
@@ -21,6 +24,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer saveCustomer(Customer customer) {
+        if(isCustomerinDB(customer.getName())){
+//            System.out.println("Value is  "+employee.getName());
+            throw new ObjectNotFoundException("Cannot add as customer exists in the db");
+        }
         if(isNullOrEmpty(customer.getName().trim())){
             throw new ObjectNotFoundException("Please type your name");
         }
@@ -31,6 +38,17 @@ public class CustomerServiceImpl implements CustomerService {
             return false;
         else
             return true;
+    }
+    private Boolean isCustomerinDB(String name){
+        try{
+            Customer customer= customerRepository.findByName(name);
+            System.out.println(customer.getName()+"employee is");
+        }catch (Exception ex){
+            System.out.println("Exception is "+ex);
+            System.out.println("ex is null. so customer doesn't exist");
+            return false;
+        }
+        return true;
     }
 
     @Override

@@ -19,7 +19,8 @@ public class Pet {
     @Column(name="NAME",nullable = false, length = 255)
     private String name;
 
-    @ManyToOne( cascade = CascadeType.ALL)
+    @ManyToOne( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "CUSTOMER_ID")
     private Customer owner;
 
     @Enumerated(EnumType.STRING)
