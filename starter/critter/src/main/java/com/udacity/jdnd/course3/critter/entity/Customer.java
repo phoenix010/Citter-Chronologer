@@ -30,7 +30,7 @@ public class Customer {
     public Customer() { }
 
     public Customer(String name, String phoneNumber, String notes, List<Pet> pets) {
-        this.id = id;
+//        this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.notes = notes;

@@ -20,7 +20,7 @@ public class Pet {
     private String name;
 
     @ManyToOne( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinColumn(name = "CUSTOMER_ID")
+    @JoinColumn(name = "CUSTOMER_ID")
     private Customer owner;
 
     @Enumerated(EnumType.STRING)
