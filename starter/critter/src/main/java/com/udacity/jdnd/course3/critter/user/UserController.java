@@ -1,5 +1,8 @@
 package com.udacity.jdnd.course3.critter.user;
 
+import com.udacity.jdnd.course3.critter.pet.PetController;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.udacity.jdnd.course3.critter.entity.Customer;
 import com.udacity.jdnd.course3.critter.entity.Employee;
 import com.udacity.jdnd.course3.critter.entity.Pet;
@@ -34,6 +37,7 @@ public class UserController {
     CustomerService customerService;
     PetService petService;
     EmployeeService employeeService;
+    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
 
     public UserController(CustomerService customerService, PetService petService, EmployeeService employeeService) {
         this.customerService = customerService;
@@ -43,6 +47,7 @@ public class UserController {
 
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
+        LOGGER.info("Saving Customer");
         Customer owner = this.customerService.saveCustomer(convertCustomerDTOtoEntity(customerDTO));
         return convertEntityToCustomerDTO(owner);
     }

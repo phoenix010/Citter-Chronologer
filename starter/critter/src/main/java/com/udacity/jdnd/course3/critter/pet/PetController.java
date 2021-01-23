@@ -1,5 +1,7 @@
 package com.udacity.jdnd.course3.critter.pet;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.udacity.jdnd.course3.critter.entity.Customer;
 import com.udacity.jdnd.course3.critter.exception.ObjectNotFoundException;
 import com.udacity.jdnd.course3.critter.service.impl.CustomerServiceImpl;
@@ -25,6 +27,7 @@ public class PetController {
 
     PetServiceImpl petService;
     CustomerServiceImpl customerService;
+    private static final Logger LOGGER = LogManager.getLogger(PetController.class);
 
     @Autowired
     public PetController(PetServiceImpl petService, CustomerServiceImpl customerService) {
@@ -34,6 +37,7 @@ public class PetController {
 
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
+        LOGGER.info("Saving Pets");
         System.out.println("working on PET POST REQ");
         Pet pet = convertPetDTOtoEntity(petDTO);
         return convertEntityToPetDTO(petService.savePet(pet));

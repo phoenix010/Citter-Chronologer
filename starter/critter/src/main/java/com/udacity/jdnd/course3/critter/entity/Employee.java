@@ -14,8 +14,10 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+
     @ElementCollection
     private Set<EmployeeSkill> skills;
+
     @ElementCollection
     private Set<DayOfWeek> daysAvailable;
 
