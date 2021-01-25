@@ -52,28 +52,41 @@ public class UserController {
         Customer owner = this.customerService.saveCustomer(convertCustomerDTOtoEntity(customerDTO));
         return convertEntityToCustomerDTO(owner);
     }
+    CustomerDTO mapCustomerToDto(Customer customer){
+        CustomerDTO dto = new CustomerDTO();
+        dto.setName(customer.getName());
+        dto.setPhoneNumber(
+                customer.getPhoneNumber()
+        );
+        dto.setNotes(customer.getNotes());
+        List<String> petNames =
+                customer.getPets()
+                        .stream()
+                        .map(c -> c.getName())
+                        .collect(Collectors.toList());
+        dto.setPetNames(petNames);
+        return dto;
+    }
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers(){
         LOGGER.info("Displaying the list of customers and their pets");
         List<Customer> ownerList = customerService.getAllCustomers();
 
-//        List<List<String>> petsName = ownerList.stream()
-//                                                .map(owner ->owner.getPets()
-//                                                        .stream()
-//                                                        .map(pet->pet.getName())
-//                                                        .collect(Collectors.toList()))
-//                                                .collect(Collectors.toList());
-//        List <CustomerDTO> ownerDTOList= ownerList.stream().map(x -> convertEntityToCustomerDTO2(x)).collect(Collectors.toList());
+        List<List<String>> petsName = ownerList.stream()
+                                                .map(owner ->owner.getPets()
+                                                        .stream()
+                                                        .map(pet->pet.getName())
+                                                        .collect(Collectors.toList()))
+                                                .collect(Collectors.toList());
+        List <CustomerDTO> ownerDTOList= ownerList.stream().map(x -> convertEntityToCustomerDTO2(x)).collect(Collectors.toList());
 
-//        for(int i=0; i< ownerDTOList.size() ; i++){
-//            for(int j=i ; j<petsName.size() ;j++){
-//                ownerDTOList.get(i).setPetNames(petsName.get(j));
-//            }
-//        }
-//         return ownerDTOList;
+        for(int i=0; i< ownerDTOList.size() ; i++){
+            ownerDTOList.get(i).setPetNames(petsName.get(i));
+        }
+         return ownerDTOList;
 
-       return ownerList.stream().map(x -> convertEntityToCustomerDTO(x)).collect(Collectors.toList());
+//       return ownerList.stream().map(x -> convertEntityToCustomerDTO(x)).collect(Collectors.toList());
     }
 
     @GetMapping("/customer/pet/{petId}")

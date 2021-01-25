@@ -21,7 +21,6 @@ public class Employee {
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
-
     @Column(name = "DAYS_AVAILABLE", length = 500)
     private Set<DayOfWeek> daysAvailable;
 

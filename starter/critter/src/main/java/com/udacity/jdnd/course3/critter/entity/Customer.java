@@ -7,9 +7,11 @@ import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -40,6 +42,10 @@ public class Customer {
 
     @OneToMany( mappedBy = "owner",cascade = CascadeType.ALL)
     private List<Pet> pets;
+
+//    @Column(name = "Pets_Name", length = 500)
+//    private List<String> petsName;
+////    private List<String> petName;
 
 
     public Customer() { }
