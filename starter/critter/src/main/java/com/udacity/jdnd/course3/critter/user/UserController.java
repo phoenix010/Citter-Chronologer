@@ -54,19 +54,23 @@ public class UserController {
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers(){
+        LOGGER.info("Displaying the list of customers and their pets");
         List<Customer> ownerList = customerService.getAllCustomers();
         return ownerList.stream().map(x -> convertEntityToCustomerDTO(x)).collect(Collectors.toList());
     }
 
     @GetMapping("/customer/pet/{petId}")
     public CustomerDTO getOwnerByPet(@PathVariable long petId){
+        LOGGER.info("Displaying owners w.r.t. PetId");
         Pet pet = petService.getPetById(petId);
         Customer owner = pet.getOwner();
-        return convertEntityToCustomerDTO(owner);
+        return new CustomerDTO(owner.getName(),owner.getPhoneNumber(), owner.getNotes());
+//        return convertEntityToCustomerDTO(owner);
     }
 
     @PostMapping("/employee")
     public EmployeeDTO saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        LOGGER.info("Saving Employee");
         Employee employee = this.employeeService.saveEmployee(convertEmployeeDTOtoEntity(employeeDTO));
         return convertEntityToEmployeeDTO(employee);
     }
@@ -78,6 +82,7 @@ public class UserController {
 //    }
     @GetMapping("/employee/{employeeId}")
     public EmployeeDTO findEmployeeByID( @PathVariable long employeeId) {
+        LOGGER.info("Displaying employee by employeeID");
         Employee employee = employeeService.getEmployeeById(employeeId);
         return convertEntityToEmployeeDTO(employee);
     }
@@ -87,16 +92,18 @@ public class UserController {
 //        throw new UnsupportedOperationException();
         Employee employee = employeeService.getEmployeeById(employeeId);
         employee.setDaysAvailable(daysAvailable);
-        return "Schedule added";
+//        employeeService.setAvailability(employee);
+        Employee employee1 = employeeService.updateEmployee(employee);
+        return employee1.getDaysAvailable().toString();
     }
 
     @GetMapping("/employee/availability")
     public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
-        throw new UnsupportedOperationException();
-//        List<Employee> employees = employeeService.getAvailableEmployees(
-//                employeeDTO.getSkills(), employeeDTO.getDate().getDayOfWeek());
-//
-//        return employees.stream().map(this::convertEntityToEmployeeDTO(this)).collect(Collectors.toList());
+
+        List<Employee> employees = employeeService.getAvailableEmployees(
+                employeeDTO.getSkills(), employeeDTO.getDate().getDayOfWeek());
+
+        return employees.stream().map(this::convertEntityToEmployeeDTO).collect(Collectors.toList());
     }
     private Employee convertEmployeeDTOtoEntity(EmployeeDTO employeeDTO){
         return new Employee(employeeDTO.getName(),employeeDTO.getSkills(),employeeDTO.getDaysAvailable());

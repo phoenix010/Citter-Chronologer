@@ -1,11 +1,17 @@
     package com.udacity.jdnd.course3.critter.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.udacity.jdnd.course3.critter.pet.PetType;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-
+//
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name = "PET")
 public class Pet {
@@ -18,6 +24,7 @@ public class Pet {
     @Nationalized
     @Column(name="NAME",nullable = false, length = 255)
     private String name;
+
 
     @ManyToOne( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "CUSTOMER_ID")
@@ -34,7 +41,19 @@ public class Pet {
     private String notes;
     public Pet() {}
 
-    public Pet(String name,Customer owner, PetType type, LocalDate birthDate, String notes) {
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", owner=" + owner +
+                ", type=" + type +
+                ", birthDate=" + birthDate +
+                ", notes='" + notes + '\'' +
+                '}';
+    }
+
+    public Pet(String name, Customer owner, PetType type, LocalDate birthDate, String notes) {
         this.name = name;
         this.owner = owner;
         this.type = type;

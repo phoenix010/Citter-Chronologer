@@ -1,9 +1,20 @@
 package com.udacity.jdnd.course3.critter.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
+
 @Entity
 @Table(name="CUSTOMER")
 public class Customer {
@@ -16,6 +27,17 @@ public class Customer {
     @Column(name= "CUSTOMER_NAME",nullable = false, length = 255)
     private String name;
 
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", notes='" + notes + '\'' +
+                ", pets=" + pets +
+                '}';
+    }
+
     @Nationalized
     @Column(name= "CONTACT_NUMBER", length = 255)
     private String phoneNumber;
@@ -24,8 +46,10 @@ public class Customer {
     @Column(name="NOTES", length = 512)
     private String notes;
 
+
     @OneToMany( mappedBy = "owner",cascade = CascadeType.ALL)
     private List<Pet> pets;
+
 
     public Customer() { }
 

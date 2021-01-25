@@ -15,7 +15,7 @@ public class CustomerDTO {
     private String notes;
     private List<Pet> pets;
 
-
+public CustomerDTO(){}
     public CustomerDTO(String name, String phoneNumber, String notes, List<Pet> pets) {
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -24,6 +24,11 @@ public class CustomerDTO {
 
     }
 
+    public CustomerDTO(String name, String phoneNumber, String notes) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.notes = notes;
+    }
     //    public long getId() {
 //        return id;
 //    }

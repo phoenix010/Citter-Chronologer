@@ -1,5 +1,6 @@
 package com.udacity.jdnd.course3.critter.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.udacity.jdnd.course3.critter.user.EmployeeSkill;
 import org.hibernate.annotations.Nationalized;
 
@@ -19,6 +20,9 @@ public class Employee {
     private Set<EmployeeSkill> skills;
 
     @ElementCollection
+    @Enumerated(EnumType.STRING)
+
+    @Column(name = "DAYS_AVAILABLE", length = 500)
     private Set<DayOfWeek> daysAvailable;
 
     public Employee(){}
@@ -66,6 +70,7 @@ public class Employee {
         return "Employee [daysAvailable=" + daysAvailable + ", id=" + id + ", name=" + name + ", skills=" + skills
                 + "]";
     }
+
 
 
 }

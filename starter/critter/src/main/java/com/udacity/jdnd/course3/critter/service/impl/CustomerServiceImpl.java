@@ -2,6 +2,7 @@ package com.udacity.jdnd.course3.critter.service.impl;
 
 import com.udacity.jdnd.course3.critter.entity.Customer;
 import com.udacity.jdnd.course3.critter.entity.Employee;
+import com.udacity.jdnd.course3.critter.entity.Pet;
 import com.udacity.jdnd.course3.critter.exception.ObjectNotFoundException;
 import com.udacity.jdnd.course3.critter.repository.CustomerRepository;
 import com.udacity.jdnd.course3.critter.service.CustomerService;
@@ -9,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -57,6 +60,19 @@ public class CustomerServiceImpl implements CustomerService {
         if(customerList.size() == 0){
             throw new ObjectNotFoundException("No customers in the DB");
         }
+//        List<List<Pet>> petsList = customerList.stream().map(ele ->ele.getPets()).collect(Collectors.toList());
+//        List<String> petName = new LinkedList<>();
+//        for(List<Pet> pet : petsList){
+//            petName = pet.stream().map(ele -> ele.getName()).collect(Collectors.toList());
+//        }
+//        for(Customer customer : customerList){
+//            customerList.remove(customer.getPets());
+//        }
+
+
+//        customerList.add(petName);
+
+
         return customerList;
     }
 

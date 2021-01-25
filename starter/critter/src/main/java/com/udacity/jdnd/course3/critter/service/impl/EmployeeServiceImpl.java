@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -65,12 +66,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getAvailableEmployees(Set<EmployeeSkill> skills, DayOfWeek dayOfWeek) {
-        return null;
+        List<Employee> employees = employeeRepository.findAllByDaysAvailableContaining(dayOfWeek);
+        List<Employee> availableEmployees = new ArrayList<>();
+        for(Employee e : employees){
+            if(e.getSkills().containsAll(skills)) {
+                availableEmployees.add(e);
+            }
+        }
+        return availableEmployees;
     }
 
     @Override
     public Long getEmployeeIdbyName(String name) {
         return employeeRepository.getIdbyName(name);
+    }
+
+    @Override
+    public Employee updateEmployee(Employee employee) {
+       Employee employee1 = getEmployeeById(employee.getId());
+       return employeeRepository.save(employee1);
     }
 
 

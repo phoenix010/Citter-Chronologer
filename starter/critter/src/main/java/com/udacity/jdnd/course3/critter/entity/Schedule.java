@@ -1,5 +1,7 @@
 package com.udacity.jdnd.course3.critter.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.udacity.jdnd.course3.critter.user.EmployeeSkill;
 
 import javax.persistence.*;
@@ -18,12 +20,24 @@ public class Schedule {
     @Column(name="SCHEDULE_ID", nullable = false,unique = true)
     private long id;
 
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "id=" + id +
+                ", activities=" + activities +
+                ", date=" + date +
+                ", employees=" + employees +
+                ", pets=" + pets +
+                '}';
+    }
+
     @ElementCollection
     @Enumerated(EnumType.STRING)
     @Column(name = "ACTIVITIES", length = 500)
     private Set<EmployeeSkill> activities = new HashSet<>();
 
     @Column(name="SCHEDULE_DATE")
+    @JsonDeserialize(as = LocalDate.class)
     private LocalDate date;
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)

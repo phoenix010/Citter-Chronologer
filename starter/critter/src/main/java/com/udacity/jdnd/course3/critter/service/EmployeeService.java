@@ -12,4 +12,6 @@ public interface EmployeeService {
     Employee getEmployeeById(long employeeId);
     List<Employee> getAvailableEmployees(Set<EmployeeSkill> skills, DayOfWeek dayOfWeek);
     Long getEmployeeIdbyName(String name);
+    Employee updateEmployee(Employee employee);
+
 }
