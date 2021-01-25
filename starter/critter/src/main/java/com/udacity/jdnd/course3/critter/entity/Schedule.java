@@ -34,6 +34,7 @@ public class Schedule {
     @ElementCollection
     @Enumerated(EnumType.STRING)
     @Column(name = "ACTIVITIES", length = 500)
+    @JsonDeserialize(as = EmployeeSkill.class)
     private Set<EmployeeSkill> activities = new HashSet<>();
 
     @Column(name="SCHEDULE_DATE")

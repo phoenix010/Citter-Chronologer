@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -56,7 +57,23 @@ public class UserController {
     public List<CustomerDTO> getAllCustomers(){
         LOGGER.info("Displaying the list of customers and their pets");
         List<Customer> ownerList = customerService.getAllCustomers();
-        return ownerList.stream().map(x -> convertEntityToCustomerDTO(x)).collect(Collectors.toList());
+
+//        List<List<String>> petsName = ownerList.stream()
+//                                                .map(owner ->owner.getPets()
+//                                                        .stream()
+//                                                        .map(pet->pet.getName())
+//                                                        .collect(Collectors.toList()))
+//                                                .collect(Collectors.toList());
+//        List <CustomerDTO> ownerDTOList= ownerList.stream().map(x -> convertEntityToCustomerDTO2(x)).collect(Collectors.toList());
+
+//        for(int i=0; i< ownerDTOList.size() ; i++){
+//            for(int j=i ; j<petsName.size() ;j++){
+//                ownerDTOList.get(i).setPetNames(petsName.get(j));
+//            }
+//        }
+//         return ownerDTOList;
+
+       return ownerList.stream().map(x -> convertEntityToCustomerDTO(x)).collect(Collectors.toList());
     }
 
     @GetMapping("/customer/pet/{petId}")
@@ -120,6 +137,9 @@ public class UserController {
     }
     private CustomerDTO convertEntityToCustomerDTO(Customer customer){
         return new CustomerDTO(customer.getName(), customer.getPhoneNumber(),customer.getNotes(),customer.getPets());
+    }
+    private CustomerDTO convertEntityToCustomerDTO2(Customer customer){
+        return new CustomerDTO(customer.getName(), customer.getPhoneNumber(),customer.getNotes());
     }
 
 }

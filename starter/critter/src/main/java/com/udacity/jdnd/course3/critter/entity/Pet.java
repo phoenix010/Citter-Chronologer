@@ -41,17 +41,6 @@ public class Pet {
     private String notes;
     public Pet() {}
 
-    @Override
-    public String toString() {
-        return "Pet{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", owner=" + owner +
-                ", type=" + type +
-                ", birthDate=" + birthDate +
-                ", notes='" + notes + '\'' +
-                '}';
-    }
 
     public Pet(String name, Customer owner, PetType type, LocalDate birthDate, String notes) {
         this.name = name;

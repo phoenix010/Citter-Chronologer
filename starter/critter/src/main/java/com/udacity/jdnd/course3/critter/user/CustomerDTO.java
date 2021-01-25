@@ -14,8 +14,12 @@ public class CustomerDTO {
     private String phoneNumber;
     private String notes;
     private List<Pet> pets;
+    private List<String> petNames;
 
 public CustomerDTO(){}
+
+
+
     public CustomerDTO(String name, String phoneNumber, String notes, List<Pet> pets) {
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -29,7 +33,15 @@ public CustomerDTO(){}
         this.phoneNumber = phoneNumber;
         this.notes = notes;
     }
-    //    public long getId() {
+
+    public List<String> getPetNames() {
+        return petNames;
+    }
+
+    public void setPetNames(List<String> petNames) {
+        this.petNames = petNames;
+    }
+//    public long getId() {
 //        return id;
 //    }
 //

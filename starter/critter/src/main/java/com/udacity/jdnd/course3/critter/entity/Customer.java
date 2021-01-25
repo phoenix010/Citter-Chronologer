@@ -27,16 +27,7 @@ public class Customer {
     @Column(name= "CUSTOMER_NAME",nullable = false, length = 255)
     private String name;
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", notes='" + notes + '\'' +
-                ", pets=" + pets +
-                '}';
-    }
+
 
     @Nationalized
     @Column(name= "CONTACT_NUMBER", length = 255)
